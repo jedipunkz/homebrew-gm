@@ -37,13 +37,15 @@ jobs:
       - name: Commit it, if it changed
         run: |
           set -euo pipefail
-          if git diff --quiet -- Formula/gm.rb; then
+          # Staged first: git diff on its own compares tracked files, and the
+          # first formula this repository ever holds is not one of those.
+          git add Formula/gm.rb
+          if git diff --cached --quiet -- Formula/gm.rb; then
             echo "Formula/gm.rb already describes $version"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Formula/gm.rb
           git commit -m "chore: bring gm to v$version"
           git push
           echo "gm v$version" >> "$GITHUB_STEP_SUMMARY"
