@@ -1,0 +1,49 @@
+# Follows gm's releases. The formula is written here, by this repository's own
+# token, so releasing gm needs no credential that reaches into this one.
+name: Update formula
+
+on:
+  schedule:
+    # Hourly, at a minute nobody else is using.
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Take the formula from gm's latest release
+        env:
+          # Reading a public repository's releases is all this needs.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag=$(gh release view --repo jedipunkz/gm --json tagName --jq .tagName)
+          version=${tag#v}
+          echo "gm's latest release is $tag"
+
+          tmp=$(mktemp -d)
+          gh release download "$tag" --repo jedipunkz/gm --pattern checksums.txt --dir "$tmp"
+
+          mkdir -p Formula
+          ./script/render-formula.sh "$version" "$tmp/checksums.txt" > Formula/gm.rb
+          echo "version=$version" >> "$GITHUB_ENV"
+
+      - name: Commit it, if it changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- Formula/gm.rb; then
+            echo "Formula/gm.rb already describes $version"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula/gm.rb
+          git commit -m "chore: bring gm to v$version"
+          git push
+          echo "gm v$version" >> "$GITHUB_STEP_SUMMARY"
