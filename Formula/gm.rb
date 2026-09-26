@@ -6,28 +6,28 @@
 class Gm < Formula
   desc "ghq-style repository manager with a built-in fuzzy finder"
   homepage "https://github.com/jedipunkz/gm"
-  version "0.2.2"
+  version "0.2.3"
   license "MIT"
 
   on_macos do
     on_intel do
-      url "https://github.com/jedipunkz/gm/releases/download/v0.2.2/gm_0.2.2_darwin_amd64.tar.gz"
-      sha256 "79c480da18e8d12836bd9cb5469c5d2b1fab830292ec30065c9d37608ff0e4b0"
+      url "https://github.com/jedipunkz/gm/releases/download/v0.2.3/gm_0.2.3_darwin_amd64.tar.gz"
+      sha256 "76662508945a0b39b754c6aff2c5290e42bd61cedd75681f66e593bc007a6621"
     end
     on_arm do
-      url "https://github.com/jedipunkz/gm/releases/download/v0.2.2/gm_0.2.2_darwin_arm64.tar.gz"
-      sha256 "fc169d7065657f5477950d4fbb273b8eed1dcd946cdf1569cd0b877947550502"
+      url "https://github.com/jedipunkz/gm/releases/download/v0.2.3/gm_0.2.3_darwin_arm64.tar.gz"
+      sha256 "808aab47503a2ffc899809fdafacca6da5bcb34c17d02fe5c91750178b9d67f3"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/jedipunkz/gm/releases/download/v0.2.2/gm_0.2.2_linux_amd64.tar.gz"
-      sha256 "a769d18175ac99c11acd8bd0b88b1537144d9e1f75bfd51f3d5714e64c8d14b5"
+      url "https://github.com/jedipunkz/gm/releases/download/v0.2.3/gm_0.2.3_linux_amd64.tar.gz"
+      sha256 "2726f05632cb0b5c1e2b6763d60f9b1d17060049e654722c34aa72ae5e9e84df"
     end
     on_arm do
-      url "https://github.com/jedipunkz/gm/releases/download/v0.2.2/gm_0.2.2_linux_arm64.tar.gz"
-      sha256 "2581783f9184e4bae3edf82926fcf3e572d80a337adea615cd3ea7c967487225"
+      url "https://github.com/jedipunkz/gm/releases/download/v0.2.3/gm_0.2.3_linux_arm64.tar.gz"
+      sha256 "47b099ec1993819755aeeab141ad4459239a450c72c386f8dd3917e813486c01"
     end
   end
 
